@@ -1,0 +1,31 @@
+﻿@{
+    ViewBag.Title = "Packing Person Login";
+}
+@{
+    Layout = "~/Views/Shared/_DeliveryPersonLayout.cshtml";
+}
+<h2>Login</h2>
+
+@using (Html.BeginForm("Login", "PackingPerson", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div>
+        <label for="email">Email</label>
+        <input type="email" name="email" class="form-control" required />
+    </div>
+    <div>
+        <label for="password">Password</label>
+        <input type="password" name="password" class="form-control" required />
+    </div>
+    <section class="col-md-3" aria-labelledby="librariesTitle">
+
+        <p>New Account? Register<a class="" href="@Url.Action("Register", "PackingPerson")">here..</a></p>
+    </section>
+    if (ViewBag.ErrorMessage != null)
+    {
+        <p style="color: red;">@ViewBag.ErrorMessage</p>
+    }
+
+    <button type="submit" class="btn btn-primary">Login</button>
+}

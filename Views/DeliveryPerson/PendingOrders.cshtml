@@ -1,0 +1,21 @@
+﻿@model IEnumerable<dynamic>
+
+<h2>Orders Pending Delivery</h2>
+@{
+    Layout = "~/Views/Shared/_DeliveryPersonLayout.cshtml";
+}
+@foreach (var order in Model)
+{
+    <div class="card mb-3">
+        <div class="card-body">
+            <h5 class="card-title">Order ID: @order.OrderId</h5>
+            <p class="card-text">Customer: @order.CustomerName</p>
+            <p class="card-text">Shipping Address: @order.ShippingAddress, @order.ShippingCity</p>
+            <p class="card-text">Total: @order.TotalAmount</p>
+            <form action="@Url.Action("MarkAsDelivered", "DeliveryPerson")" method="post">
+                <input type="hidden" name="orderId" value="@order.OrderId" />
+                <button type="submit" class="btn btn-success">Mark as Delivered</button>
+            </form>
+        </div>
+    </div>
+}

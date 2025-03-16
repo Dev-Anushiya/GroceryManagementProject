@@ -1,0 +1,43 @@
+﻿@model IEnumerable<GroceryManSystem.Models.Order>
+
+@{
+    ViewBag.Title = "My Orders";
+}
+@{
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+<h2>My Orders</h2>
+
+@foreach (var order in Model)
+{
+    <div class="card mb-3">
+        <div class="card-body">
+            <h5 class="card-title">Order ID: @order.OrderId</h5>
+            <p class="card-text">Total Amount: @order.TotalAmount.ToString("F2")</p>
+            <p class="card-text">Status: @order.Status</p>
+            <p class="card-text">Created At: @order.CreatedAt.ToString("yyyy-MM-dd HH:mm")</p>
+        </div>
+    </div>
+}
+
+@*<table class="table">
+        <thead>
+            <tr>
+                <th>Order ID</th>
+                <th>Total Amount</th>
+                <th>Status</th>
+                <th>Created At</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var order in Model)
+            {
+                <tr>
+                    <td>@order.OrderId</td>
+                    <td>$@order.TotalAmount.ToString("F2")</td>
+                    <td>@order.Status</td>
+                    <td>@order.CreatedAt.ToString("yyyy-MM-dd HH:mm")</td>
+                </tr>
+            }
+        </tbody>
+    </table>*@

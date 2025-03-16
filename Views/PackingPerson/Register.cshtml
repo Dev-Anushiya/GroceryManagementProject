@@ -1,0 +1,41 @@
+﻿@model GroceryManSystem.Models.PackingPerson
+
+@{
+    ViewBag.Title = "Packing Person Registration";
+}
+@{
+    Layout = "~/Views/Shared/_DeliveryPersonLayout.cshtml";
+}
+<h2>Register</h2>
+
+@using (Html.BeginForm("Register", "PackingPerson", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div>
+        @Html.LabelFor(model => model.Name)
+        @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Name)
+
+    </div>
+    <div>
+        @Html.LabelFor(model => model.Email)
+        @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Email)
+    </div>
+    <div>
+        @Html.LabelFor(model => model.Password)
+        @Html.PasswordFor(model => model.Password, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Password)
+    </div>
+    <div>
+        @Html.LabelFor(model => model.ContactNumber)
+        @Html.TextBoxFor(model => model.ContactNumber, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.ContactNumber)
+    </div>
+    <section class="col-md-3" aria-labelledby="librariesTitle">
+
+        <p>Existing Account? Login <a class="" href="@Url.Action("Login", "PackingPerson")">here..</a></p>
+    </section>
+    <button type="submit" class="btn btn-primary">Register</button>
+}

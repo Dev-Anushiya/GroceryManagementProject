@@ -1,0 +1,32 @@
+﻿@model List<GroceryManSystem.Models.Inventory>
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<h3>Products Inventory</h3>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Product Name</th>
+            <th>Price</th>
+            <th>Stock</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var product in Model)
+        {
+            <tr>
+                <td>@product.Product</td>
+                <td>@product.Price</td>
+                <td>@product.Stock</td>
+                <td>
+                    <form method="post" action="@Url.Action("EditProduct", "Admin")" class="d-flex">
+                        <input type="hidden" name="productId" value="@product.ProductId" />
+                        <input type="number" name="newStock" min="0" class="form-control form-control-sm" placeholder="Update Stock" required />
+                        <button type="submit" class="btn btn-sm btn-primary ms-2">Update</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

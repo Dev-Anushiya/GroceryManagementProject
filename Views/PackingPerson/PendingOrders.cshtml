@@ -1,0 +1,44 @@
+﻿@model List<GroceryManSystem.Models.PackingOrderViewModel>
+@{
+    Layout = "~/Views/Shared/_DeliveryPersonLayout.cshtml";
+}
+<div class="container mt-4">
+    <h2 class="text-center">Orders Pending for Packing</h2>
+
+    @if (Model != null && Model.Any())
+    {
+        foreach (var order in Model)
+        {
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h5 class="card-title">Order #@order.OrderId</h5>
+                    <p class="card-text"><strong>Customer:</strong> @order.CustomerName</p>
+                    <p class="card-text"><strong>Total Amount:</strong> €@order.TotalAmount.ToString("F2")</p>
+                </div>
+                <div class="card-body">
+                    <h6>Products:</h6>
+                    <ul class="list-group">
+                        @foreach (var item in order.Items)
+                        {
+                            <li class="list-group-item">
+                                <strong>@item.ProductName</strong>
+                                - Quantity: @item.Quantity
+                                - Price: €@item.Price.ToString("F2")
+                            </li>
+                        }
+                    </ul>
+                </div>
+                <div class="card-footer text-right">
+                    <form method="post" action="@Url.Action("MarkAsPacked", "PackingPerson")">
+                        <input type="hidden" name="orderId" value="@order.OrderId" />
+                        <button type="submit" class="btn btn-success">Done</button>
+                    </form>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <p class="text-center text-muted">No pending orders to pack.</p>
+    }
+</div>

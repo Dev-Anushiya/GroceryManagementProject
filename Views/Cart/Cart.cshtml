@@ -1,0 +1,153 @@
+﻿@{
+    ViewBag.Title = "View Cart";
+}
+@{
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+<style type="text/css">
+    /* General Styling */
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f9f9f9;
+/*        padding: 20px;*/
+    }
+
+    /* Cart Container */
+    #cart-container {
+        background: #fff;
+        padding: 20px;
+/*        margin: 50px;*/
+        border-radius: 10px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        max-width: 500px;
+        margin: auto auto 20px auto;
+    }
+
+    /* Cart Items */
+    .cart-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 0;
+        border-bottom: 1px solid #ddd;
+    }
+
+    /* Quantity Buttons */
+    .quantity-control {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .qty-btn {
+        background: #ddd;
+        border: none;
+        padding: 5px 10px;
+        cursor: pointer;
+        border-radius: 5px;
+        font-size: 16px;
+    }
+
+        .qty-btn:hover {
+            background: #bbb;
+        }
+
+    /* Remove Button */
+    .remove-btn {
+        background: #ff4d4d;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+        .remove-btn:hover {
+            background: #e60000;
+        }
+
+    /* Shipping Inputs */
+    .shipping-inputs {
+        margin: 15px 0;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+        .shipping-inputs input {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            width: 100%;
+        }
+
+    /* Checkout Button */
+    .checkout-btn {
+        background: #0070ba;
+        color: white;
+        border: none;
+        padding: 12px;
+        width: 100%;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: 0.3s;
+    }
+
+        .checkout-btn:hover {
+            background: #005ea6;
+        }
+</style>
+@*/* Responsive Design */
+@media (max-width: 600px) {
+    #cart-container {
+        max-width: 100%;
+        padding: 15px;
+    }
+
+    .cart-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}*@
+<form action="@Url.Action("PlaceOrder", "Cart")" method="post">
+    <h2>Your Cart</h2>
+    <div id="cart-container">
+        <div id="cart-items">
+            <h3>Items in Your Cart</h3>
+        </div>
+        <div id="cart-total">
+            <h3>Total: €<span id="cart-total-value">0.00</span></h3>
+        </div>
+        <div class="shipping-inputs">
+            <input placeholder="Shipping Adress.." id="ShippingAddress" name="ShippingAddress" />
+            <input placeholder="Shipping City.." id="ShippingCity" name="ShippingCity" />
+        </div>
+        <input type="hidden" id="totalAmount" name="totalAmount" />
+        <div id="hidden-cart-inputs"></div>
+        <button type="submit" class="checkout-btn" onclick="setTotalValue()">Checkout with PayPal</button>
+    </div>
+</form>
+@*<script src="~/Scripts/Inventory.js"></script>*@
+<script src="~/Scripts/Cart1.js"></script>
+<script src="~/Scripts/Inventory.js"></script>
+
+<script type="text/javascript">
+        // Function to set the total value to the hidden input field
+        function setTotalValue() {
+            var totalValue = document.getElementById("cart-total-value").innerText;
+            document.getElementById("totalAmount").value = totalValue;
+
+            alert('Items are successfully placed!');
+            //localStorage.removeItem("cart");
+        }
+        // Function to redirect the user to their order history
+        function redirectToOrders() {
+            window.location.href = '@Url.Action("MyOrders", "Cart")';
+        }
+        document.querySelector('form').addEventListener('submit', () => {
+            // Clear cart from localStorage when the form is submitted
+            localStorage.removeItem('cart');
+        });
+</script>
+
